@@ -12,7 +12,7 @@
 
 <h5 class="mb-2">
 	Algorithms
-	<i class="ti ti-affiliate" />
+	<i class="ti ti-affiliate text-sky-500" />
 </h5>
 <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 	{#each algorithms as algorithm}
@@ -21,7 +21,7 @@
 				<div
 					class="bg-sky-500 rounded-md w-[40px] h-[40px] flex items-center justify-center"
 				>
-					<i class="ti ti-cpu-2 text-[30px] text-white" />
+					<i class="ti ti-table-alias text-[30px] text-white" />
 				</div>
 				<h6>{algorithm.title}</h6>
 			</div>

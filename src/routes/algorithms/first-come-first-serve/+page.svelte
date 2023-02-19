@@ -92,7 +92,7 @@
 
 <h5 class="mb-2">
 	First Come First Serve
-	<i class="ti ti-cpu-2" />
+	<i class="ti ti-table-alias text-sky-500" />
 </h5>
 <div class="overflow-x-auto">
 	<div class="min-w-[350px]">
