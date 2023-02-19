@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+	html {
+		@apply bg-gray-100;
+	}
 	p {
 		@apply text-base;
 	}

@@ -25,9 +25,7 @@ export const updateMedia = () => {
 		mediaStates.isMDUp.set(winWidth > breakpoints.lg);
 		mediaStates.isLGUp.set(winWidth > breakpoints.xl);
 		mediaStates.isXLUp.set(winWidth > breakpoints['2xl']);
-	} catch (error) {
-		console.error(error);
-	}
+	} catch {}
 };
 export const initializeMediaStates = () => {
 	updateMedia();

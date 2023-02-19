@@ -14,9 +14,14 @@
 		"push-f": "git push -u origin main --force"
 	},
 	"devDependencies": {
+		"@popperjs/core": "^2.11.6",
 		"@sveltejs/adapter-static": "^1.0.1",
 		"@sveltejs/kit": "^1.0.0",
+		"@types/nprogress": "^0.2.0",
 		"autoprefixer": "^10.4.13",
+		"classnames": "^2.3.2",
+		"flowbite": "^1.6.3",
+		"flowbite-svelte": "^0.29.13",
 		"postcss": "^8.4.21",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
@@ -29,8 +34,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@svelteuidev/composables": "^0.10.0",
-		"@svelteuidev/core": "^0.10.0",
+		"nprogress": "^0.2.0",
 		"tailwindcss": "^3.2.4"
 	}
 }
