@@ -112,7 +112,7 @@
 			</thead>
 			<tbody>
 				{#each processes as process}
-					<TableItem {...{ process, isIdDuplicate, deleteProcess, editProcess }} />
+					<TableItem {...{ process, deleteProcess, editProcess }} />
 				{/each}
 				{#if processes.length === 0}
 					<td />
@@ -136,7 +136,7 @@
 		Gantt Chart
 		<i class="ti ti-table-alias text-sky-500" />
 	</h5>
-	<div class="overflow-x-auto">
+	<div class="overflow-x-auto overflow-y-hidden">
 		<div class="flex">
 			{#each processes as process, i}
 				<div class="text-xs">
