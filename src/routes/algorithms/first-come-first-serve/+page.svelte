@@ -18,7 +18,7 @@
 	const isIdDuplicate = (id: number) => processes.some((process) => process.id === id);
 	const calculate = () => {
 		let lastCompletion = 0;
-		processes = _.orderBy<Process>(processes, ['id'], ['asc']).map((process) => {
+		processes = _.orderBy<Process>(processes, ['arrival'], ['asc']).map((process) => {
 			process.completion = process.burst + lastCompletion;
 			process.turnaround = process.completion - process.arrival;
 			process.waiting = process.turnaround - process.burst;
@@ -40,10 +40,9 @@
 		];
 		calculate();
 	};
-	const editProcess = (targetId: number, id: number, arrival: number, burst: number) => {
+	const editProcess = (id: number, arrival: number, burst: number) => {
 		processes = processes.map((process) => {
-			if (process.id !== targetId) return process;
-			process.id = id;
+			if (process.id !== id) return process;
 			process.arrival = arrival;
 			process.burst = burst;
 			return process;
