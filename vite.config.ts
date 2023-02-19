@@ -11,6 +11,7 @@ const config: UserConfig = {
 			$utils: path.resolve('./src/utils'),
 			$stores: path.resolve('./src/stores'),
 			$assets: path.resolve('./src/assets'),
+			$types: path.resolve('./src/types'),
 		},
 	},
 };

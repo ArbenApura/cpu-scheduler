@@ -1,5 +1,5 @@
 <script lang="ts">
-	// DATA
+	// STATES
 	const algorithms = [
 		{
 			title: 'First Come First Serve',
