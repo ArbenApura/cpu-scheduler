@@ -2,24 +2,29 @@
 	// IMPORTED TYPES
 	import type { Process } from '$types/index';
 	// IMPORTED LIB-COMPONENTS
-	import { Button, Modal, Label, Input, Dropdown, DropdownItem } from 'flowbite-svelte';
+	import { Button, Modal, Label, Input, Dropdown, DropdownItem, Helper } from 'flowbite-svelte';
 
 	// PROPS
 	export let process: Process,
+		isIdDuplicate: (id: number) => boolean,
 		deleteProcess: (id: number) => void,
-		editProcess: (id: number, arrival: number, burst: number) => void;
+		editProcess: (targetId: number, id: number, arrival: number, burst: number) => void;
 
 	// STATES
 	let editorModal = {
 		isOpen: false,
+		errors: { id: '' },
 	};
 
 	// UTILS
 	const handleEdit = (event: SubmitEvent) => {
 		const form = event.target as HTMLFormElement;
+		const id = parseInt(form.input_id.value);
 		const arrival = parseInt(form.input_arrival.value);
 		const burst = parseInt(form.input_burst.value);
-		editProcess(process.id, arrival, burst);
+		if (process.id !== id && isIdDuplicate(id))
+			return (editorModal.errors.id = 'ID is already taken!');
+		editProcess(process.id, id, arrival, burst);
 		editorModal.isOpen = false;
 	};
 </script>
@@ -44,6 +49,20 @@
 
 <Modal bind:open={editorModal.isOpen} size="xs" title="Edit Process" class="w-full text-left">
 	<form class="flex flex-col space-y-6" action="#" on:submit|preventDefault={handleEdit}>
+		<Label class="space-y-2">
+			<span>ID</span>
+			<Input
+				name="input_id"
+				type="number"
+				placeholder="Input a number"
+				color={editorModal.errors.id ? 'red' : 'base'}
+				value={process.id}
+				required
+			/>
+			{#if editorModal.errors.id}
+				<Helper class="mt-2" color="red">{editorModal.errors.id}</Helper>
+			{/if}
+		</Label>
 		<Label class="space-y-2">
 			<span>Arrival Time</span>
 			<Input

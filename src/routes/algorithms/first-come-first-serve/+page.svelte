@@ -1,6 +1,8 @@
 <script lang="ts">
 	// IMPORTED TYPES
 	import type { Process } from '$types/index';
+	// IMPORTED LIB-UTILS
+	import _ from 'lodash';
 	// IMPORTED LIB-COMPONENTS
 	import { Button, Modal, Label, Input, Helper } from 'flowbite-svelte';
 	import TableItem from './components/TableItem.svelte';
@@ -16,7 +18,7 @@
 	const isIdDuplicate = (id: number) => processes.some((process) => process.id === id);
 	const calculate = () => {
 		let lastCompletion = 0;
-		processes = processes.map((process) => {
+		processes = _.orderBy<Process>(processes, ['id'], ['asc']).map((process) => {
 			process.completion = process.burst + lastCompletion;
 			process.turnaround = process.completion - process.arrival;
 			process.waiting = process.turnaround - process.burst;
@@ -38,9 +40,10 @@
 		];
 		calculate();
 	};
-	const editProcess = (id: number, arrival: number, burst: number) => {
+	const editProcess = (targetId: number, id: number, arrival: number, burst: number) => {
 		processes = processes.map((process) => {
-			if (process.id !== id) return process;
+			if (process.id !== targetId) return process;
+			process.id = id;
 			process.arrival = arrival;
 			process.burst = burst;
 			return process;
@@ -110,7 +113,7 @@
 			</thead>
 			<tbody>
 				{#each processes as process}
-					<TableItem {...{ process, deleteProcess, editProcess }} />
+					<TableItem {...{ process, isIdDuplicate, deleteProcess, editProcess }} />
 				{/each}
 				{#if processes.length === 0}
 					<td />
@@ -128,6 +131,36 @@
 <div class="flex justify-end mt-2">
 	<Button color="primary" size="sm" on:click={() => (adderModal.isOpen = true)}>Add</Button>
 </div>
+
+{#if processes.length}
+	<h5 class="my-2">
+		Gantt Chart
+		<i class="ti ti-table-alias text-sky-500" />
+	</h5>
+	<div class="overflow-x-auto">
+		<div class="flex">
+			{#each processes as process, i}
+				<div class="text-xs">
+					<div
+						class="bg-white w-[40px] h-[40px] border 
+						{i + 1 !== processes.length && 'border-r-0'} 
+						flex items-center justify-center"
+					>
+						P{i + 1}
+					</div>
+					<div class="flex">
+						<span class="flex-grow">
+							{#if i === 0}
+								0
+							{/if}
+						</span>
+						<span>{process.completion}</span>
+					</div>
+				</div>
+			{/each}
+		</div>
+	</div>
+{/if}
 
 <style lang="scss">
 	@import '$styles';
