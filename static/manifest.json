@@ -1,0 +1,22 @@
+{
+	"short_name": "CPU Scheduler",
+	"name": "CPU Scheduler By Arben",
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "icon.svg",
+			"type": "image/svg+xml",
+			"sizes": "800x800"
+		},
+		{
+			"src": "icon.png",
+			"type": "image/png",
+			"sizes": "800x800"
+		}
+	],
+	"background_color": "#111827",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#111827",
+	"description": "A cpu scheduler developed by Arben Apura."
+}
