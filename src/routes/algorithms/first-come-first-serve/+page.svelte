@@ -94,29 +94,37 @@
 	First Come First Serve
 	<i class="ti ti-cpu-2" />
 </h5>
-<table class="w-full border-collapse text-center">
-	<thead class="bg-white">
-		<tr>
-			<th>ID</th>
-			<th>Arrival Time</th>
-			<th>Burst Time</th>
-			<th>Completion Time</th>
-			<th>Turnaround Time</th>
-			<th>Waiting Time</th>
-			<th><i class="ti ti-tools" /></th>
-		</tr>
-	</thead>
-	<tbody>
-		{#each processes as process}
-			<TableItem {...{ process, deleteProcess, editProcess }} />
-		{/each}
-	</tbody>
-</table>
-{#if processes.length === 0}
-	<div class="border-x border-b p-4">
-		<p class="text-sm text-center leading-none">Empty</p>
+<div class="overflow-x-auto">
+	<div class="min-w-[350px]">
+		<table class="w-full border-collapse text-center">
+			<thead class="bg-white">
+				<tr>
+					<th>ID</th>
+					<th>Arrival Time</th>
+					<th>Burst Time</th>
+					<th>Completion Time</th>
+					<th>Turnaround Time</th>
+					<th>Waiting Time</th>
+					<th><i class="ti ti-tools" /></th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each processes as process}
+					<TableItem {...{ process, deleteProcess, editProcess }} />
+				{/each}
+				{#if processes.length === 0}
+					<td />
+					<td />
+					<td />
+					<td>Empty</td>
+					<td />
+					<td />
+					<td />
+				{/if}
+			</tbody>
+		</table>
 	</div>
-{/if}
+</div>
 <div class="flex justify-end mt-2">
 	<Button color="primary" size="sm" on:click={() => (adderModal.isOpen = true)}>Add</Button>
 </div>
