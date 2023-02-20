@@ -3,6 +3,8 @@
 	import type { Process } from '$types/index';
 	// IMPORTED LIB-UTILS
 	import _ from 'lodash';
+	// IMPORTED UTILS
+	import { generateRandomId } from '$utils/helpers';
 	// IMPORTED LIB-COMPONENTS
 	import { Button, Modal, Label, Input, Helper } from 'flowbite-svelte';
 	import TableItem from './components/TableItem.svelte';
@@ -15,7 +17,7 @@
 	};
 
 	// UTILS
-	const isIdDuplicate = (id: number) => processes.some((process) => process.id === id);
+	const isIdDuplicate = (id: string) => processes.some((process) => process.id === id);
 	const calculate = () => {
 		let lastCompletion = 0;
 		processes = _.orderBy<Process>(processes, ['arrival'], ['asc']).map((process) => {
@@ -26,7 +28,7 @@
 			return process;
 		});
 	};
-	const addProcess = (id: number, arrival: number, burst: number) => {
+	const addProcess = (id: string, arrival: number, burst: number) => {
 		processes = [
 			...processes,
 			{
@@ -40,7 +42,7 @@
 		];
 		calculate();
 	};
-	const editProcess = (id: number, arrival: number, burst: number) => {
+	const editProcess = (id: string, arrival: number, burst: number) => {
 		processes = processes.map((process) => {
 			if (process.id !== id) return process;
 			process.arrival = arrival;
@@ -49,13 +51,13 @@
 		});
 		calculate();
 	};
-	const deleteProcess = (id: number) => {
+	const deleteProcess = (id: string) => {
 		processes = processes.filter((process) => process.id !== id);
 		calculate();
 	};
 	const handleAdd = (event: SubmitEvent) => {
 		const form = event.target as HTMLFormElement;
-		const id = parseInt(form.input_id.value);
+		const id = form.input_id.value;
 		const arrival = parseInt(form.input_arrival.value);
 		const burst = parseInt(form.input_burst.value);
 		if (isIdDuplicate(id)) return (adderModal.errors.id = 'ID is already taken!');
@@ -70,9 +72,10 @@
 			<span>ID</span>
 			<Input
 				name="input_id"
-				type="number"
+				type="text"
 				placeholder="Input a number"
 				color={adderModal.errors.id ? 'red' : 'base'}
+				value={generateRandomId(5)}
 				required
 				on:change={() => (adderModal.errors.id = '')}
 			/>

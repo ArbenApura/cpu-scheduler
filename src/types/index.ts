@@ -1,5 +1,5 @@
 export type Process = {
-	id: number;
+	id: string;
 	arrival: number;
 	burst: number;
 	completion: number;

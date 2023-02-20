@@ -6,8 +6,8 @@
 
 	// PROPS
 	export let process: Process,
-		deleteProcess: (id: number) => void,
-		editProcess: (id: number, arrival: number, burst: number) => void;
+		deleteProcess: (id: string) => void,
+		editProcess: (id: string, arrival: number, burst: number) => void;
 
 	// STATES
 	let editorModal = {
