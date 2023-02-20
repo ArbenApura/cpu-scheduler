@@ -12,6 +12,10 @@
 	import Header from '$components/layouts/Header.svelte';
 	import Footer from '$components/layouts/Footer.svelte';
 
+	// PROPS
+	export const srr = false,
+		prerender = true;
+
 	// REACTIVE STATEMENTS
 	$: if ($navigating) NProgress.start();
 	else NProgress.done();
