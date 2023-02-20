@@ -27,7 +27,7 @@
 	onMount(() => {
 		initializeStores();
 		// REMOVE LOADER
-		const loaderEl = document.querySelector('.loader');
+		const loaderEl = document.querySelector('#loader');
 		if (loaderEl) loaderEl.remove();
 	});
 </script>
