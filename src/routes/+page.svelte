@@ -7,6 +7,12 @@
 			description:
 				'A scheduling algorithm where the process that arrives first is executed first, and the next process is executed only after the first process has finished.',
 		},
+		{
+			title: 'Shortest Job First',
+			href: '/algorithms/shortest-job-first',
+			description:
+				'A scheduling algorithm where the job with the shortest CPU burst time is scheduled to run first.',
+		},
 	];
 </script>
 

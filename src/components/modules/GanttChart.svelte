@@ -15,7 +15,7 @@
 						{i + 1 !== processes.length && 'border-r-0'} 
 						flex items-center justify-center"
 				>
-					P{i + 1}
+					P{process.id}
 				</div>
 				<div class="flex">
 					<span class="flex-grow">

@@ -14,7 +14,7 @@
 	<form class="flex flex-col space-y-6" action="#" on:submit|preventDefault={handleAdd}>
 		<Label class="space-y-2">
 			<span>ID</span>
-			<Input name="input_id" type="text" value={processes.length} readonly disabled />
+			<Input name="input_id" type="text" value={processes.length + 1} readonly disabled />
 		</Label>
 		<Label class="space-y-2">
 			<span>Arrival Time</span>
