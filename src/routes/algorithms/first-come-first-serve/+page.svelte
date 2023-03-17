@@ -17,13 +17,23 @@
 	// UTILS
 	const calculate = () => {
 		let lastCompletion = 0;
-		processes = _.orderBy<Process>(processes, ['arrival'], ['asc']).map((process, i) => {
-			process.id = i;
-			process.completion = process.burst + lastCompletion;
-			process.turnaround = process.completion - process.arrival;
-			process.waiting = process.turnaround - process.burst;
-			lastCompletion = process.completion;
-			return process;
+		let calculated: Process[] = _.orderBy<Process>(processes, ['arrival'], ['asc']).map(
+			(process) => {
+				process.completion = process.burst + lastCompletion;
+				process.turnaround = process.completion - process.arrival;
+				process.waiting = process.turnaround - process.burst;
+				lastCompletion = process.completion;
+				return process;
+			},
+		);
+		calculated.forEach((calcProcess) => {
+			processes = processes.map((process) => {
+				if (calcProcess.id !== process.id) return process;
+				process.completion = calcProcess.completion;
+				process.turnaround = calcProcess.turnaround;
+				process.waiting = calcProcess.waiting;
+				return process;
+			});
 		});
 	};
 	const addProcess = (id: number, arrival: number, burst: number) => {
@@ -81,5 +91,5 @@
 		Gantt Chart
 		<i class="ti ti-table-alias text-sky-500" />
 	</h5>
-	<GanttChart {processes} />
+	<GanttChart processes={_.orderBy(processes, ['arrival'], ['asc'])} />
 {/if}
