@@ -1,21 +1,21 @@
 <script lang="ts">
 	// IMPORTED TYPES
-	import type { Process } from '$types/index';
+	import type { GanttItem } from '$types/index';
 
 	// PROPS
-	export let processes: Process[];
+	export let items: GanttItem[];
 </script>
 
 <div class="overflow-x-auto overflow-y-hidden">
 	<div class="flex">
-		{#each processes as process, i}
+		{#each items as item, i}
 			<div class="text-xs">
 				<div
 					class="bg-white w-[40px] h-[40px] border 
-						{i + 1 !== processes.length && 'border-r-0'} 
+						{i + 1 !== items.length && 'border-r-0'} 
 						flex items-center justify-center"
 				>
-					P{process.id}
+					P{item.id}
 				</div>
 				<div class="flex">
 					<span class="flex-grow">
@@ -23,7 +23,7 @@
 							0
 						{/if}
 					</span>
-					<span>{process.completion}</span>
+					<span>{item.value}</span>
 				</div>
 			</div>
 		{/each}

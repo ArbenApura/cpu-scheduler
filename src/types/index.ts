@@ -4,5 +4,10 @@ export type Process = {
 	burst: number;
 	completion: number;
 	turnaround: number;
+	remaining: number;
 	waiting: number;
+};
+export type GanttItem = {
+	id: number;
+	value: number;
 };

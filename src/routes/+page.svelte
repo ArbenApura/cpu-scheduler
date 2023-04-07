@@ -2,16 +2,25 @@
 	// STATES
 	const algorithms = [
 		{
+			icon: 'ti-dice-1',
 			title: 'First Come First Serve',
 			href: '/algorithms/first-come-first-serve',
 			description:
-				'A scheduling algorithm where the process that arrives first is executed first, and the next process is executed only after the first process has finished.',
+				'Non-Preemptive: A scheduling algorithm where the process that arrives first is executed first, and the next process is executed only after the first process has finished.',
 		},
 		{
+			icon: 'ti-dice-2',
 			title: 'Shortest Job First',
 			href: '/algorithms/shortest-job-first',
 			description:
-				'A scheduling algorithm where the job with the shortest CPU burst time is scheduled to run first.',
+				'Non-Preemptive: A scheduling algorithm where the job with the shortest CPU burst time is scheduled to run first.',
+		},
+		{
+			icon: 'ti-dice-3',
+			title: 'Shortest Remaining Time First',
+			href: '/algorithms/shortest-remaining-time-first',
+			description:
+				'Preemptive: A scheduling algorithm where the process with the shortest estimated remaining processing time is executed next.',
 		},
 	];
 </script>
@@ -27,7 +36,7 @@
 				<div
 					class="bg-sky-500 rounded-md w-[40px] h-[40px] flex items-center justify-center"
 				>
-					<i class="ti ti-table-alias text-[30px] text-white" />
+					<i class="ti {algorithm.icon} text-[30px] text-white" />
 				</div>
 				<h6>{algorithm.title}</h6>
 			</div>
