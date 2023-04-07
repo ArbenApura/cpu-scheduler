@@ -25,7 +25,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each processes as process}
+				{#each processes.sort((a, b) => a.id - b.id) as process}
 					<TableItem {...{ process, deleteProcess, editProcess }} />
 				{/each}
 				{#if processes.length === 0}
