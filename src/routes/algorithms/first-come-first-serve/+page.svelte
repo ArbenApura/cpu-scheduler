@@ -12,24 +12,41 @@
 
 	// UTILS
 	const calculate = () => {
+		ganttItems.set([]);
+		let calculated: Process[] = [];
 		let lastCompletion = 0;
-		let calculated: Process[] = _.orderBy<Process>($processes, ['arrival'], ['asc']).map(
-			(process) => {
-				process.completion = process.burst + lastCompletion;
-				process.turnaround = process.completion - process.arrival;
-				process.waiting = process.turnaround - process.burst;
-				lastCompletion = process.completion;
-				return process;
-			},
-		);
+		let isIdle = false;
+		while (!$processes.every((process) => calculated.includes(process))) {
+			let matched: Process[] = $processes.filter(
+				(process) => !calculated.includes(process) && process.arrival <= lastCompletion,
+			);
+			matched = _.orderBy<Process>(matched, ['arrival'], ['asc']);
+			if (matched.length) {
+				isIdle = false;
+				let currentProcess = matched[0];
+				lastCompletion += currentProcess.burst;
+				currentProcess.completion = lastCompletion;
+				currentProcess.turnaround = currentProcess.completion - currentProcess.arrival;
+				currentProcess.waiting = currentProcess.turnaround - currentProcess.burst;
+				calculated.push(currentProcess);
+				ganttItems.update((values) => [
+					...values,
+					{ id: currentProcess.id, value: lastCompletion },
+				]);
+			} else {
+				lastCompletion++;
+				if (isIdle)
+					ganttItems.update((values) =>
+						values.map((item, i) => {
+							if (i + 1 === values.length) item.value = lastCompletion;
+							return item;
+						}),
+					);
+				else ganttItems.update((values) => [...values, { id: 0, value: lastCompletion }]);
+				isIdle = true;
+			}
+		}
 		replaceProcesses(calculated);
-		ganttItems.set(
-			_.orderBy(
-				calculated.map((process) => ({ id: process.id, value: process.completion })),
-				['completion'],
-				['asc'],
-			),
-		);
 	};
 </script>
 

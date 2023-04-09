@@ -12,7 +12,9 @@
 						{i + 1 !== $ganttItems.length && 'border-r-0'} 
 						flex items-center justify-center"
 				>
-					P{item.id}
+					{#if item.id !== 0}
+						P{item.id}
+					{/if}
 				</div>
 				<div class="flex">
 					<span class="flex-grow">

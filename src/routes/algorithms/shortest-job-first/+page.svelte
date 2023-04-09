@@ -6,38 +6,47 @@
 	// IMPORTED STATES
 	import { processes, ganttItems } from '$stores/processStates';
 	// IMPORTED UTILS
-	import { getShortestArrival } from '$utils/helpers';
 	import { replaceProcesses } from '$stores/processStates';
 	// IMPROTED COMPONENTS
 	import Template from '$components/modules/Template.svelte';
 
 	// UTILS
 	const calculate = () => {
+		ganttItems.set([]);
 		let calculated: Process[] = [];
-		let lastCompletion: number = getShortestArrival($processes).arrival;
-		while (calculated.length !== $processes.length) {
-			const passed = $processes.filter((process) => {
-				if (calculated.some((calcProcess) => calcProcess.id === process.id)) return false;
-				else if (process.arrival > lastCompletion) return false;
-				return true;
-			});
-			if (!passed.length) break;
-			const sorted = _.orderBy<Process>(passed, ['burst'], ['asc']);
-			const shortest = sorted[0];
-			shortest.completion = shortest.burst + lastCompletion;
-			shortest.turnaround = shortest.completion - shortest.arrival;
-			shortest.waiting = shortest.turnaround - shortest.burst;
-			lastCompletion = shortest.completion;
-			calculated.push(shortest);
+		let lastCompletion = 0;
+		let isIdle = false;
+		while (!$processes.every((process) => calculated.includes(process))) {
+			let matched: Process[] = $processes.filter(
+				(process) => !calculated.includes(process) && process.arrival <= lastCompletion,
+			);
+			matched = _.orderBy<Process>(matched, ['burst'], ['asc']);
+			if (matched.length) {
+				isIdle = false;
+				let currentProcess = matched[0];
+				lastCompletion += currentProcess.burst;
+				currentProcess.completion = lastCompletion;
+				currentProcess.turnaround = currentProcess.completion - currentProcess.arrival;
+				currentProcess.waiting = currentProcess.turnaround - currentProcess.burst;
+				calculated.push(currentProcess);
+				ganttItems.update((values) => [
+					...values,
+					{ id: currentProcess.id, value: lastCompletion },
+				]);
+			} else {
+				lastCompletion++;
+				if (isIdle)
+					ganttItems.update((values) =>
+						values.map((item, i) => {
+							if (i + 1 === values.length) item.value = lastCompletion;
+							return item;
+						}),
+					);
+				else ganttItems.update((values) => [...values, { id: 0, value: lastCompletion }]);
+				isIdle = true;
+			}
 		}
 		replaceProcesses(calculated);
-		ganttItems.set(
-			_.orderBy(
-				calculated.map((process) => ({ id: process.id, value: process.completion })),
-				['value'],
-				['asc'],
-			),
-		);
 	};
 </script>
 
