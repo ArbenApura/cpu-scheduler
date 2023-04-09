@@ -22,23 +22,25 @@
 
 <AddProcessModal {...{ isModalOpen: isAdderModalOpen, setIsAdderModalOpen }} />
 
-<h5 class="mb-2 flex items-center gap-2">
-	{title}
-	<i class="ti {icon} text-sky-500 text-[25px] mb-1" />
-</h5>
-<ProcessesTable />
-<div class="flex justify-end mt-2 gap-2">
-	{#if $processes.length}
-		<Button color="alternative" size="sm" on:click={resetStates}>Reset</Button>
-		<Button color="alternative" size="sm" on:click={calculate}>Calculate</Button>
-	{/if}
-	<Button color="primary" size="sm" on:click={() => (isAdderModalOpen = true)}>Add</Button>
-</div>
-
-{#if $ganttItems.length}
-	<h5 class="my-2 flex items-center gap-2">
-		Gantt Chart
-		<i class="ti ti-table-alias text-sky-500 text-[25px] mb-1" />
+<div class="flex flex-col gap-4">
+	<h5 class="mb-2 flex items-center gap-2">
+		{title}
+		<i class="ti {icon} text-sky-500 text-[25px] mb-1" />
 	</h5>
-	<GanttChart />
-{/if}
+	<ProcessesTable />
+	<div class="flex justify-end mt-2 gap-2">
+		{#if $processes.length}
+			<Button color="alternative" size="sm" on:click={resetStates}>Reset</Button>
+			<Button color="alternative" size="sm" on:click={calculate}>Calculate</Button>
+		{/if}
+		<Button color="primary" size="sm" on:click={() => (isAdderModalOpen = true)}>Add</Button>
+	</div>
+
+	{#if $ganttItems.length}
+		<h5 class="my-2 flex items-center gap-2">
+			Gantt Chart
+			<i class="ti ti-table-alias text-sky-500 text-[25px] mb-1" />
+		</h5>
+		<GanttChart />
+	{/if}
+</div>

@@ -3,7 +3,7 @@
 	import { ganttItems } from '$stores/processStates';
 </script>
 
-<div class="overflow-x-auto overflow-y-hidden">
+<div class="overflow-x-auto overflow-y-hidden border rounded-md">
 	<div class="flex">
 		{#each $ganttItems as item, i}
 			<div class="text-xs">

@@ -36,7 +36,7 @@
 
 <main>
 	<Header />
-	<div class="min-h-[calc(100vh-(60px+88px))] p-4">
+	<div class="min-h-[calc(100vh-(60px+104px))] p-4">
 		<slot />
 	</div>
 	<Footer />

@@ -5,7 +5,7 @@
 	import TableItem from './TableItem.svelte';
 </script>
 
-<div class="overflow-x-auto">
+<div class="overflow-x-auto border rounded-md">
 	<div class="min-w-[500px]">
 		<table class="w-full border-collapse text-center">
 			<thead class="bg-white">
