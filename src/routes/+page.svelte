@@ -22,6 +22,13 @@
 			description:
 				'Preemptive: A scheduling algorithm where the process with the shortest estimated remaining processing time is executed next.',
 		},
+		{
+			icon: 'ti-dice-4',
+			title: 'Shortest Remaining Time First 2',
+			href: '/algorithms/shortest-remaining-time-first-2',
+			description:
+				'Preemptive: Alternative. A scheduling algorithm where the process with the shortest estimated remaining processing time is executed next.',
+		},
 	];
 	const infos = [
 		{

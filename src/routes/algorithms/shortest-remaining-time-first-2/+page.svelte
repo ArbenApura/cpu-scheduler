@@ -27,7 +27,7 @@
 						process.id !== currentProcess.id &&
 						process.remaining &&
 						process.arrival <= lastCompletion &&
-						process.remaining < currentProcess.remaining,
+						process.burst < currentProcess.burst,
 				);
 				if (matched.length && iteration > 1) break;
 				currentProcess.remaining--;
@@ -55,4 +55,4 @@
 	};
 </script>
 
-<Template {...{ title: 'Shortest Remaining Time First', icon: 'ti-dice-3', calculate }} />
+<Template {...{ title: 'Shortest Remaining Time First 2', icon: 'ti-dice-4', calculate }} />
