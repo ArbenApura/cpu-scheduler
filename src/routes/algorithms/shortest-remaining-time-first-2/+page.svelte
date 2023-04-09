@@ -7,11 +7,10 @@
 	import { processes, ganttItems } from '$stores/processStates';
 	// IMPORTED UTILS
 	import { getShortestArrival } from '$utils/helpers';
-	import { resetValues, replaceProcess } from '$stores/processStates';
+	import { resetValues, replaceProcess, addGanttItem } from '$stores/processStates';
 	// IMPROTED COMPONENTS
 	import Template from '$components/modules/Template.svelte';
 
-	// UTILS
 	const calculate = () => {
 		resetValues();
 		ganttItems.set([]);
@@ -37,10 +36,7 @@
 			currentProcess.turnaround = currentProcess.completion - currentProcess.arrival;
 			currentProcess.waiting = currentProcess.turnaround - currentProcess.burst;
 			replaceProcess(currentProcess);
-			ganttItems.update((values) => [
-				...values,
-				{ id: currentProcess.id, value: lastCompletion },
-			]);
+			addGanttItem({ id: currentProcess.id, value: lastCompletion });
 			if (!matched.length)
 				matched = $processes.filter(
 					(process) =>

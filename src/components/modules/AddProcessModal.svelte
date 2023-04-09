@@ -52,7 +52,6 @@
 			inputs.map(({ id, arrival, burst }) => addProcess(id, arrival, burst));
 			isOpen = false;
 		} catch (err: any) {
-			console.log(error);
 			error = typeof err === 'object' ? err.message : err;
 		}
 	};

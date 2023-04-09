@@ -1,5 +1,5 @@
 // IMPORTED TYPES
-import type { Process } from '$types/index';
+import type { Process, GanttItem } from '$types/index';
 // IMPORTED STATES
 import { processes, ganttItems } from '$stores/processStates';
 
@@ -48,4 +48,12 @@ export const editProcess = (id: number, arrival: number, burst: number) =>
 	);
 export const deleteProcess = (id: number) =>
 	processes.update((values) => values.filter((process) => process.id !== id));
+export const addGanttItem = (item: GanttItem) => ganttItems.update((values) => [...values, item]);
+export const incrementLastGanttItem = () =>
+	ganttItems.update((values) =>
+		values.map((item, i) => {
+			if (i + 1 === values.length) item.value++;
+			return item;
+		}),
+	);
 export const initializeProcessStates = () => {};

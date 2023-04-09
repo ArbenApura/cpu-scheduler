@@ -6,7 +6,7 @@
 	// IMPORTED STATES
 	import { processes, ganttItems } from '$stores/processStates';
 	// IMPORTED UTILS
-	import { replaceProcesses } from '$stores/processStates';
+	import { replaceProcesses, addGanttItem, incrementLastGanttItem } from '$stores/processStates';
 	// IMPROTED COMPONENTS
 	import Template from '$components/modules/Template.svelte';
 
@@ -29,20 +29,11 @@
 				currentProcess.turnaround = currentProcess.completion - currentProcess.arrival;
 				currentProcess.waiting = currentProcess.turnaround - currentProcess.burst;
 				calculated.push(currentProcess);
-				ganttItems.update((values) => [
-					...values,
-					{ id: currentProcess.id, value: lastCompletion },
-				]);
+				addGanttItem({ id: currentProcess.id, value: lastCompletion });
 			} else {
 				lastCompletion++;
-				if (isIdle)
-					ganttItems.update((values) =>
-						values.map((item, i) => {
-							if (i + 1 === values.length) item.value = lastCompletion;
-							return item;
-						}),
-					);
-				else ganttItems.update((values) => [...values, { id: 0, value: lastCompletion }]);
+				if (isIdle) incrementLastGanttItem();
+				else addGanttItem({ id: 0, value: lastCompletion });
 				isIdle = true;
 			}
 		}
