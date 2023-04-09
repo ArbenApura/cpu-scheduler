@@ -1,18 +1,16 @@
 <script lang="ts">
 	// IMPORTED TYPES
 	import type { Process } from '$types/index';
+	// IMPORTED UTILS
+	import { editProcess, deleteProcess } from '$stores/processStates';
 	// IMPORTED LIB-COMPONENTS
 	import { Button, Modal, Label, Input, Dropdown, DropdownItem } from 'flowbite-svelte';
 
 	// PROPS
-	export let process: Process,
-		deleteProcess: (id: number) => void,
-		editProcess: (id: number, arrival: number, burst: number) => void;
+	export let process: Process;
 
 	// STATES
-	let editorModal = {
-		isOpen: false,
-	};
+	let isEditorModalOpen = false;
 
 	// UTILS
 	const handleEdit = (event: SubmitEvent) => {
@@ -20,7 +18,7 @@
 		const arrival = parseInt(form.input_arrival.value);
 		const burst = parseInt(form.input_burst.value);
 		editProcess(process.id, arrival, burst);
-		editorModal.isOpen = false;
+		isEditorModalOpen = false;
 	};
 </script>
 
@@ -33,7 +31,7 @@
 	<td>{process.waiting}</td>
 	<td class="hover:bg-gray-200 cursor-pointer"><i class="ti ti-dots" /></td>
 	<Dropdown>
-		<DropdownItem on:click={() => (editorModal.isOpen = true)}>
+		<DropdownItem on:click={() => (isEditorModalOpen = true)}>
 			<i class="ti ti-ballpen mr-2" />Edit
 		</DropdownItem>
 		<DropdownItem on:click={() => deleteProcess(process.id)}>
@@ -42,7 +40,7 @@
 	</Dropdown>
 </tr>
 
-<Modal bind:open={editorModal.isOpen} size="xs" title="Edit Process" class="w-full text-left">
+<Modal bind:open={isEditorModalOpen} size="xs" title="Edit Process" class="w-full text-left">
 	<form class="flex flex-col space-y-6" action="#" on:submit|preventDefault={handleEdit}>
 		<Label class="space-y-2">
 			<span>Arrival Time</span>

@@ -1,16 +1,13 @@
 <script lang="ts">
-	// IMPORTED TYPES
-	import type { Process } from '$types/index';
-	// IMPORTED LIB-UTILS
-	import _ from 'lodash';
+	// IMPORTED STATES
+	import { processes } from '$stores/processStates';
+	// IMPORTED UTILS
+	import { addProcess } from '$stores/processStates';
 	// IMPORTED LIB-COMPONENTS
 	import { Button, Modal, Label, Input, Radio } from 'flowbite-svelte';
 
 	// PROPS
-	export let isModalOpen: boolean,
-		processes: Process[],
-		setIsAdderModalOpen: (isOpen: boolean) => void,
-		addProcess: (id: number, arrival: number, burst: number) => void;
+	export let isModalOpen: boolean, setIsAdderModalOpen: (isOpen: boolean) => void;
 
 	// STATES
 	let mode = 'comma-seperated';
@@ -41,7 +38,7 @@
 				if (arrivals.length !== bursts.length)
 					throw new Error('The values was not even in length!');
 				for (let i = 0; i < arrivals.length; i++) {
-					const id = inputs.length + processes.length + 1;
+					const id = inputs.length + $processes.length + 1;
 					const arrival = arrivals[i];
 					const burst = bursts[i];
 					inputs.push({ id, arrival, burst });
@@ -92,7 +89,13 @@
 		{:else}
 			<Label class="space-y-2">
 				<span>ID</span>
-				<Input name="input_id" type="text" value={processes.length + 1} readonly disabled />
+				<Input
+					name="input_id"
+					type="text"
+					value={$processes.length + 1}
+					readonly
+					disabled
+				/>
 			</Label>
 			<Label class="space-y-2">
 				<span>Arrival Time</span>

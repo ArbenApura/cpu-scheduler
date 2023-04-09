@@ -25,9 +25,9 @@
 	];
 </script>
 
-<h5 class="mb-2">
+<h5 class="mb-2 flex items-center gap-2">
 	Algorithms
-	<i class="ti ti-affiliate text-sky-500" />
+	<i class="ti ti-code text-sky-500 text-[25px] mb-1" />
 </h5>
 <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 	{#each algorithms as algorithm}

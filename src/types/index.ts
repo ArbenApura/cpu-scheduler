@@ -1,3 +1,4 @@
+// TYPES
 export type Process = {
 	id: number;
 	arrival: number;
