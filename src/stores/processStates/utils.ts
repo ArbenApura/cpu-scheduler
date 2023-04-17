@@ -1,12 +1,13 @@
 // IMPORTED TYPES
 import type { Process, GanttItem } from '$types/index';
 // IMPORTED STATES
-import { processes, ganttItems } from '$stores/processStates';
+import { processes, ganttItems, timeQuantum } from '$stores/processStates';
 
 // UTILS
 export const resetStates = () => {
 	processes.set([]);
 	ganttItems.set([]);
+	timeQuantum.set(0);
 };
 export const resetValues = () =>
 	processes.update((values) =>

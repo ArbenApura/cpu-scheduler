@@ -6,4 +6,5 @@ import { writable } from 'svelte/store';
 // STATES
 export const processes = writable<Process[]>([]);
 export const ganttItems = writable<GanttItem[]>([]);
-export const processStates = { processes, ganttItems };
+export const timeQuantum = writable<number>(0);
+export const processStates = { processes, ganttItems, timeQuantum };

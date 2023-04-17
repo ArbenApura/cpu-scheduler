@@ -1,17 +1,21 @@
 <script lang="ts">
 	// IMPORTED STATES
-	import { processes, ganttItems } from '$stores/processStates';
+	import { processes, ganttItems, timeQuantum } from '$stores/processStates';
 	// IMPORTED UTILS
 	import { resetStates } from '$stores/processStates';
 	// IMPORTED LIB-COMPONENTS
 	import { Button } from 'flowbite-svelte';
 	// IMPROTED COMPONENTS
-	import ProcessesTable from '$components/modules/ProcessesTable.svelte';
-	import GanttChart from '$components/modules/GanttChart.svelte';
-	import AddProcessModal from '$components/modules/AddProcessModal.svelte';
+	import ProcessesTable from './ProcessesTable.svelte';
+	import GanttChart from './GanttChart.svelte';
+	import AddProcessModal from './AddProcessModal.svelte';
+	import TimeQuantumForm from './TimeQuantumForm.svelte';
 
 	// PROPS
-	export let title: string, icon: string, calculate: () => void;
+	export let title: string,
+		icon: string,
+		isUsingTimeQuantum = false,
+		calculate: () => void;
 
 	// STATES
 	let isAdderModalOpen = false;
@@ -28,14 +32,23 @@
 			{title}
 			<i class="ti {icon} text-sky-500 text-[25px] mb-1" />
 		</h5>
+		{#if isUsingTimeQuantum}
+			<TimeQuantumForm />
+		{/if}
 		<ProcessesTable />
 		<div class="flex justify-end mt-2 gap-2">
 			{#if $processes.length}
 				<Button color="alternative" size="sm" on:click={resetStates}>Reset</Button>
-				<Button color="alternative" size="sm" on:click={calculate}>Calculate</Button>
+				<Button
+					color="alternative"
+					size="sm"
+					disabled={isUsingTimeQuantum && !$timeQuantum}
+					on:click={calculate}>Calculate</Button
+				>
 			{/if}
-			<Button color="primary" size="sm" on:click={() => (isAdderModalOpen = true)}>Add</Button
-			>
+			<Button color="primary" size="sm" on:click={() => (isAdderModalOpen = true)}>
+				Add
+			</Button>
 		</div>
 	</div>
 	{#if $ganttItems.length}

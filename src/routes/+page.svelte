@@ -29,6 +29,13 @@
 			description:
 				'Preemptive: Alternative. A scheduling algorithm where the process with the shortest estimated remaining processing time is executed next.',
 		},
+		{
+			icon: 'ti-dice-5',
+			title: 'Round Robin',
+			href: '/algorithms/round-robin',
+			description:
+				'Preemptive: A scheduling algorithm  used by operating systems to schedule CPU time among multiple processes. In this algorithm, each process is assigned a fixed time slice or time quantum.',
+		},
 	];
 	const infos = [
 		{
