@@ -51,4 +51,4 @@
 	};
 </script>
 
-<Template {...{ title: 'Shortest Remaining Time First 2', icon: 'ti-dice-4', calculate }} />
+<Template {...{ title: 'Shortest Remaining Time First 2', icon: 'ti-dice-3', calculate }} />

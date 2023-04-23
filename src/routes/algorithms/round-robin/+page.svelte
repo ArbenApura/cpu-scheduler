@@ -35,4 +35,4 @@
 	};
 </script>
 
-<Template {...{ title: 'Round Robin', icon: 'ti-dice-5', isUsingTimeQuantum: true, calculate }} />
+<Template {...{ title: 'Round Robin', icon: 'ti-dice-4', isUsingTimeQuantum: true, calculate }} />
